@@ -1,0 +1,72 @@
+<aside class="w-64 bg-white shadow-sm border-r border-gray-200 min-h-screen">
+  <nav class="p-4">
+    <!-- Navigation Links -->
+    <div class="space-y-2 mb-8">
+      <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Navigation</h3>
+      
+      <%= link_to dashboard_path, class: "flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 #{'bg-blue-100 text-blue-700' if current_page?(dashboard_path)}" do %>
+        <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+        </svg>
+        Dashboard
+      <% end %>
+    </div>
+
+    <!-- New Project Button -->
+    <div class="mb-8">
+      <%= link_to new_project_path, class: "w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" do %>
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        New Project
+      <% end %>
+    </div>
+
+    <!-- Project Groups -->
+    <% if @project_groups&.any? %>
+      <div class="space-y-2">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Project Groups</h3>
+        
+        <% @project_groups.each do |group| %>
+          <div class="space-y-1">
+            <button class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none" onclick="toggleGroup('<%= group.name %>')">
+              <div class="flex items-center">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                <%= group.name %>
+              </div>
+              <svg class="h-4 w-4 transform transition-transform" id="arrow-<%= group.name %>">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            
+            <div id="group-<%= group.name %>" class="hidden ml-6 space-y-1">
+              <% group.projects.where(user: current_user).each do |project| %>
+                <%= link_to project_path(project), class: "block px-3 py-2 text-sm text-gray-600 rounded-md hover:bg-gray-100 hover:text-gray-900 #{'bg-blue-50 text-blue-700' if current_page?(project_path(project))}" do %>
+                  <%= project.name %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </nav>
+</aside>
+
+<script>
+  function toggleGroup(groupName) {
+    const groupDiv = document.getElementById('group-' + groupName);
+    const arrow = document.getElementById('arrow-' + groupName);
+    
+    if (groupDiv.classList.contains('hidden')) {
+      groupDiv.classList.remove('hidden');
+      arrow.style.transform = 'rotate(180deg)';
+    } else {
+      groupDiv.classList.add('hidden');
+      arrow.style.transform = 'rotate(0deg)';
+    }
+  }
+</script>
