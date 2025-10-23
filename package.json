@@ -2,7 +2,10 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "build:css:dev": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css",
+    "build:assets": "yarn build:css",
+    "precompile": "yarn build:assets"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.15",

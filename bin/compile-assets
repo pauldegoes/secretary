@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Asset compilation script for Secretary application
+# Ensures CSS is compiled before Rails startup
+
+set -e
+
+echo "🔨 Compiling assets..."
+
+# Check if yarn is available
+if ! command -v yarn &> /dev/null; then
+    echo "❌ Error: yarn is not installed"
+    echo "Please install yarn: npm install -g yarn"
+    exit 1
+fi
+
+# Check if dependencies are installed
+if [ ! -d "node_modules" ]; then
+    echo "📦 Installing Node.js dependencies..."
+    yarn install
+fi
+
+# Compile CSS assets
+echo "🎨 Compiling Tailwind CSS..."
+yarn build:css
+
+# Verify CSS was created
+if [ ! -f "app/assets/builds/application.css" ]; then
+    echo "❌ Error: CSS compilation failed"
+    exit 1
+fi
+
+echo "✅ Assets compiled successfully!"
+echo "📁 CSS file: app/assets/builds/application.css"
+echo "📊 File size: $(du -h app/assets/builds/application.css | cut -f1)"

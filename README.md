@@ -1,164 +1,114 @@
 # Secretary
 
-A modern Ruby on Rails project management application with SSO authentication, built with clean code principles and a responsive UI.
+A simple, insightful project management application
 
 ## Features
 
-### Authentication
-- **SSO Integration**: Sign in with Google and GitHub
-- **User Management**: Automatic user creation and profile management
-- **Security**: Login tracking with IP addresses and user agents
-- **Profile Photos**: Automatic photo download and resizing (300x300px max)
 
-### Project Management
-- **Project Creation**: Create projects with name, target date, owner, and project groups
-- **Project Groups**: Tag-based grouping system (similar to Jira labels)
-- **Dashboard**: Overview of all projects with statistics
-- **Project Details**: Detailed project view with editing capabilities
 
-### User Interface
-- **Responsive Design**: Built with Tailwind CSS for mobile-first design
-- **Modern Layout**: Clean header with user dropdown and dynamic sidebar
-- **Intuitive Navigation**: Easy project organization and access
+## Known Issues
 
-## Technology Stack
+The following features have known issues that need to be addressed:
 
-- **Backend**: Ruby on Rails 7.1.5
-- **Database**: PostgreSQL 15
-- **Frontend**: Tailwind CSS with responsive design
-- **Authentication**: OmniAuth with Google OAuth2 and GitHub
-- **Image Processing**: MiniMagick for photo resizing
-- **Ruby Version**: 3.4.7
+- **Photo Upload**: Profile photo upload functionality is not working.  Resizing may not be taking place.
+- **Login Audit**: Login history missing SSO provider information
+- **Navigation UI**: Left sidebar expansion arrow is cut off
+- **Project Navigation**: Sidebar doesn't show projects section outside dashboard view
 
 ## Prerequisites
 
-- Ruby 3.4.7 (managed with rbenv)
+- Ruby 3.4.7 (rbenv recommended)
 - PostgreSQL 15
-- Node.js and Yarn (for asset compilation)
+- Node.js and Yarn
 - Git
+- rbenv
 
-## Installation
+## Quick Start
 
-### 1. Clone the Repository
+### 1. Clone and Install
 
 ```bash
 git clone <repository-url>
 cd secretary
-```
-
-### 2. Install Dependencies
-
-```bash
-# Install Ruby gems
 bundle install
-
-# Install Node.js dependencies
 yarn install
 ```
 
-### 3. Database Setup
+### 2. Database Setup
 
 ```bash
-# Start PostgreSQL (if not already running)
+# Start PostgreSQL
 brew services start postgresql@15
 
-# Create and setup the database
+# Create and migrate database
 bundle exec rails db:create
 bundle exec rails db:migrate
 ```
 
-### 4. Environment Configuration
+### 3. Environment Configuration
 
-Create a `.env` file in the root directory with the following variables:
+Create `.env` file with OAuth credentials:
 
 ```env
-# Google OAuth2 Configuration
+# Google OAuth2
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-# GitHub OAuth Configuration
+# GitHub OAuth
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
-
-# Database Configuration (if needed)
-DATABASE_URL=postgresql://username:password@localhost/secretary_development
 ```
 
-### 5. OAuth Setup
+### 4. OAuth Setup
 
-#### Google OAuth2 Setup
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
-5. Add authorized redirect URIs:
-   - `http://localhost:3000/auth/google_oauth2/callback` (development)
-   - `https://yourdomain.com/auth/google_oauth2/callback` (production)
+**Google OAuth2:**
+1. [Google Cloud Console](https://console.cloud.google.com/) → Create OAuth 2.0 credentials
+2. Add redirect URI: `http://localhost:3000/auth/google_oauth2/callback`
 
-#### GitHub OAuth Setup
-1. Go to GitHub Settings > Developer settings > OAuth Apps
-2. Create a new OAuth App
-3. Set Authorization callback URL:
-   - `http://localhost:3000/auth/github/callback` (development)
-   - `https://yourdomain.com/auth/github/callback` (production)
+**GitHub OAuth:**
+1. GitHub Settings → Developer settings → OAuth Apps
+2. Add callback URL: `http://localhost:3000/auth/github/callback`
 
-### 6. Start the Application
+### 5. Start Application
 
 ```bash
-# Start the Rails server
 bundle exec rails server
-
-# Or use the development script (includes asset compilation)
-bin/dev
 ```
 
-The application will be available at `http://localhost:3000`
+Visit `http://localhost:3000` and sign in with Google or GitHub.
 
-## Usage
+## Testing
 
-### First Time Setup
-1. Visit `http://localhost:3000`
-2. Click "Continue with Google" or "Continue with GitHub"
-3. Authorize the application
-4. You'll be redirected to the dashboard
+### Run Test Suite
 
-### Creating Projects
-1. Click "New Project" in the sidebar
-2. Fill in project details:
-   - **Project Name**: Required
-   - **Owner**: Required
-   - **Target Date**: Optional
-   - **Project Group**: Type to search existing groups or create new ones
-3. Click "Create Project"
+```bash
+# Run all tests with coverage
+bundle exec rspec
 
-### Managing Projects
-- **View Projects**: Click on any project name to view details
-- **Edit Projects**: Use the edit button on project cards or detail pages
-- **Delete Projects**: Use the delete button (with confirmation)
-- **Organize by Groups**: Projects are automatically grouped by tags
+# Run specific test files
+bundle exec rspec spec/models/
+bundle exec rspec spec/controllers/
+```
 
-### Profile Management
-- **View Profile**: Click on your email in the header dropdown
-- **Update Photo**: Upload a new profile photo (will replace SSO photo)
-- **View Login History**: See recent login attempts with IP addresses
+### Test Coverage
+
+- **81.67% line coverage** (exceeds 80% threshold)
+- **69 examples, 0 failures**
+- Coverage report: `coverage/index.html`
+
+### Test Structure
+
+```
+spec/
+├── models/           # Model tests (User, Project, Tag, etc.)
+├── controllers/      # Controller tests (Auth, Projects, etc.)
+└── spec_helper.rb    # RSpec configuration with SimpleCov
+```
 
 ## Development
 
-### Running Tests
-```bash
-bundle exec rails test
-```
-
-### Code Quality
-```bash
-# Run Brakeman security scanner
-bundle exec brakeman
-
-# Run RuboCop (if configured)
-bundle exec rubocop
-```
-
 ### Database Management
+
 ```bash
 # Reset database
 bundle exec rails db:reset
@@ -166,97 +116,144 @@ bundle exec rails db:reset
 # Run migrations
 bundle exec rails db:migrate
 
-# Rollback migrations
+# Rollback
 bundle exec rails db:rollback
 ```
 
 ### Asset Compilation
+
 ```bash
-# Compile CSS
+# Build CSS (production)
 yarn build:css
 
-# Watch for changes
-yarn build:css --watch
+# Build CSS (development)
+yarn build:css:dev
+
+# Compile all assets
+yarn build:assets
+
+# Watch for changes (development)
+yarn build:css:dev --watch
+
+# Manual asset compilation
+./bin/compile-assets
+```
+
+**Production Deployment:**
+- Assets are automatically compiled before Rails server startup
+- Use `Procfile` for Heroku/deployment platforms
+- Docker containers compile assets via `docker-entrypoint`
+
+### Code Quality
+
+```bash
+# Security scan
+bundle exec brakeman
+
+# Code coverage
+bundle exec rspec
+open coverage/index.html
 ```
 
 ## Project Structure
 
 ```
-secretary/
-├── app/
-│   ├── controllers/          # Application controllers
-│   ├── models/              # ActiveRecord models
-│   ├── views/               # ERB templates
-│   └── assets/              # CSS and JavaScript assets
-├── config/                  # Application configuration
-├── db/                      # Database migrations and schema
-├── lib/                     # Custom libraries
-├── public/                  # Static assets
-└── test/                    # Test files
+app/
+├── controllers/      # Auth, Projects, Dashboard, Profile, Sessions
+├── models/          # User, Project, Tag, UserLogin, ProjectTag
+├── views/           # ERB templates with Tailwind CSS
+└── assets/          # CSS and JavaScript
+
+config/
+├── routes.rb        # Application routes
+├── database.yml     # Database configuration
+└── master.key       # Rails credentials key (not in Git)
+
+db/
+├── migrate/         # Database migrations
+└── schema.rb        # Current database schema
 ```
 
-## Database Schema
+## Key Models
 
-### Users
-- `username`: Unique username
-- `email`: Unique email address
-- `first_name`, `last_name`: User's name
-- `provider`, `uid`: OAuth provider information
-- `photo`: ActiveStorage attachment for profile photo
+- **User**: OAuth integration, profile management, login tracking
+- **Project**: Project management with tags and groups
+- **Tag**: Flexible tagging system for project organization
+- **UserLogin**: Security logging of user sessions
 
-### Projects
-- `name`: Project name
-- `target_date`: Project deadline
-- `owner`: Project owner
-- `user_id`: Foreign key to users
+## Security Features
 
-### Tags
-- `name`: Tag name
-- `namespace`: Tag category (e.g., 'project_group')
+- ✅ Master key properly excluded from Git history
+- ✅ OAuth integration with secure callback handling
+- ✅ Login tracking with IP addresses and user agents
+- ✅ CSRF protection enabled
+- ✅ Secure session management
 
-### ProjectTags
-- `project_id`, `tag_id`: Many-to-many relationship
+## Troubleshooting
 
-### UserLogins
-- `user_id`: Foreign key to users
-- `ip_address`: Login IP address
-- `user_agent`: Browser information
-- `signed_in_at`: Login timestamp
+### Common Issues
 
-## Deployment
+**OAuth 404 Errors:**
+- Verify OAuth app configuration
+- Check redirect URIs match exactly
+- Ensure OAuth apps are published/enabled
 
-### Production Environment Variables
-```env
-RAILS_ENV=production
-SECRET_KEY_BASE=your_secret_key_base
-SECRETARY_DATABASE_PASSWORD=your_db_password
-GOOGLE_CLIENT_ID=your_production_google_client_id
-GOOGLE_CLIENT_SECRET=your_production_google_client_secret
-GITHUB_CLIENT_ID=your_production_github_client_id
-GITHUB_CLIENT_SECRET=your_production_github_client_secret
-```
+**Database Connection:**
+- Ensure PostgreSQL is running: `brew services start postgresql@15`
+- Check database credentials in `config/database.yml`
 
-### Deployment Checklist
-- [ ] Set up production database
-- [ ] Configure OAuth redirect URIs for production domain
-- [ ] Set environment variables
-- [ ] Run database migrations
-- [ ] Compile assets
-- [ ] Configure web server (Nginx/Apache)
-- [ ] Set up SSL certificates
+**Asset Compilation:**
+- Install dependencies: `yarn install`
+- Build assets: `yarn build:css`
+- Check CSS file exists: `ls -la app/assets/builds/application.css`
+- Force recompilation: `rm app/assets/builds/application.css && ./bin/compile-assets`
 
-## Contributing
+**Test Failures:**
+- Reset test database: `RAILS_ENV=test bundle exec rails db:reset`
+- Check environment variables are set
+
+### Known Issues & Workarounds
+
+**Photo Upload Not Working:**
+- Profile photo upload is currently broken
+- SSO photos work correctly
+- Workaround: Use SSO provider photos only
+
+**Navigation Issues:**
+- Sidebar expansion arrow may be cut off
+- Projects section only visible on dashboard
+- Workaround: Navigate via dashboard to access projects
+
+**Login History Missing Provider:**
+- Login audit doesn't show which SSO provider was used
+- All logins show as generic authentication
+- Workaround: Check user's provider field in database
+
+## Roadmap
+
+### Planned Features
+
+- **Multi-User Projects**: Allow multiple users to access and collaborate on project dashboards
+- **Project Comments**: Add commenting system to projects for team collaboration
+- **Enhanced Navigation**: Fix sidebar issues and improve project navigation
+- **Photo Upload**: Resolve profile photo upload functionality
+- **Login Audit Enhancement**: Add SSO provider information to login history
+
+### Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create feature branch: `git checkout -b feature/name`
+3. Make changes and add tests
+4. Ensure tests pass: `bundle exec rspec`
+5. Commit: `git commit -m 'Add feature'`
+6. Push: `git push origin feature/name`
+7. Open Pull Request
+
+**Priority Issues to Fix:**
+- Photo upload functionality
+- Login audit provider tracking
+- Navigation UI improvements
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support and questions, please open an issue in the GitHub repository.
+MIT License - see LICENSE file for details.
