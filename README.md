@@ -2,18 +2,18 @@
 
 A simple, insightful project management application
 
-## Features
-
-
-
-## Known Issues
-
-The following features have known issues that need to be addressed:
+## Bugs
 
 - **Photo Upload**: Profile photo upload functionality is not working.  Resizing may not be taking place.
 - **Login Audit**: Login history missing SSO provider information
 - **Navigation UI**: Left sidebar expansion arrow is cut off
-- **Project Navigation**: Sidebar doesn't show projects section outside dashboard view
+- **Project Navigation**: Left Sidebar doesn't show projects section outside dashboard view
+
+## Features for Development
+- **Allowing multiple logged-in users to access the project dashboard**
+- **Allow users to add comments to each project**
+- **Add project statuses**
+
 
 ## Prerequisites
 
@@ -249,11 +249,8 @@ db/
 6. Push: `git push origin feature/name`
 7. Open Pull Request
 
-**Priority Issues to Fix:**
-- Photo upload functionality
-- Login audit provider tracking
-- Navigation UI improvements
+
 
 ## License
 
-MIT License - see LICENSE file for details.
+All rights reserved
