@@ -10,7 +10,6 @@ A simple, insightful project management application
 - **Project Navigation**: Left Sidebar doesn't show projects section outside dashboard view
 
 ## Features for Development
-- **Allowing multiple logged-in users to access the project dashboard**
 - **Allow users to add comments to each project**
 - **Add project statuses**
 
