@@ -1,6 +1,15 @@
 # Secretary
 
-A simple, insightful project management application
+A dummy app for a live coding challenge.
+
+## Coding challenge
+
+If you're here, you're probably planning on interviewing. That's great.  Familiarize yourself with the repo and prepare to show what you know by tackling some of the bugs and/or features below.  Our objective is to get to know how you think and solve problems as you work through:
+
+- Pulling down this repo
+- Setting up this appand your environment 
+- Analyzing and understanding the bugs and requested features
+- Adapting this code base in an intelligent, performant way
 
 ## Bugs
 
@@ -9,9 +18,12 @@ A simple, insightful project management application
 - **Navigation UI**: Left sidebar expansion arrow is cut off
 - **Project Navigation**: Left Sidebar doesn't show projects section outside dashboard view
 
-## Features for Development
-- **Allow users to add comments to each project**
-- **Add project statuses**
+### Planned Features
+
+- **Project Comments**: Add commenting system to projects for team collaboration
+- **Enhanced Navigation**: Fix sidebar issues and improve project navigation
+- **Photo Upload**: Resolve profile photo upload functionality
+- **Login Audit Enhancement**: Add SSO provider information to login history
 
 
 ## Prerequisites
@@ -210,45 +222,6 @@ db/
 **Test Failures:**
 - Reset test database: `RAILS_ENV=test bundle exec rails db:reset`
 - Check environment variables are set
-
-### Known Issues & Workarounds
-
-**Photo Upload Not Working:**
-- Profile photo upload is currently broken
-- SSO photos work correctly
-- Workaround: Use SSO provider photos only
-
-**Navigation Issues:**
-- Sidebar expansion arrow may be cut off
-- Projects section only visible on dashboard
-- Workaround: Navigate via dashboard to access projects
-
-**Login History Missing Provider:**
-- Login audit doesn't show which SSO provider was used
-- All logins show as generic authentication
-- Workaround: Check user's provider field in database
-
-## Roadmap
-
-### Planned Features
-
-- **Multi-User Projects**: Allow multiple users to access and collaborate on project dashboards
-- **Project Comments**: Add commenting system to projects for team collaboration
-- **Enhanced Navigation**: Fix sidebar issues and improve project navigation
-- **Photo Upload**: Resolve profile photo upload functionality
-- **Login Audit Enhancement**: Add SSO provider information to login history
-
-### Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/name`
-3. Make changes and add tests
-4. Ensure tests pass: `bundle exec rspec`
-5. Commit: `git commit -m 'Add feature'`
-6. Push: `git push origin feature/name`
-7. Open Pull Request
-
-
 
 ## License
 
