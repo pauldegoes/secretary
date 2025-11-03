@@ -20,10 +20,8 @@ If you're here, you're probably planning on interviewing. That's great.  Familia
 
 ### Planned Features
 
-- **Project Comments**: Add commenting system to projects for team collaboration
-- **Enhanced Navigation**: Fix sidebar issues and improve project navigation
-- **Photo Upload**: Resolve profile photo upload functionality
-- **Login Audit Enhancement**: Add SSO provider information to login history
+-- **Allow users to add comments to each project**
+-- **Add project statuses**
 
 
 ## Prerequisites
