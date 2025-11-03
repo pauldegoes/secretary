@@ -20,8 +20,8 @@ If you're here, you're probably planning on interviewing. That's great.  Familia
 
 ### Planned Features
 
--- **Allow users to add comments to each project**
--- **Add project statuses**
+- **Allow users to add comments to each project**
+- **Add project statuses**
 
 
 ## Prerequisites
