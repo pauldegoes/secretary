@@ -13,10 +13,10 @@ If you're here, you're probably planning on interviewing. That's great.  Familia
 
 ## Bugs
 
+- **Project Navigation**: Left Sidebar doesn't show projects section outside dashboard view
+- **Navigation UI**: Left sidebar expansion arrow is cut off
 - **Photo Upload**: Profile photo upload functionality is not working.  Resizing may not be taking place.
 - **Login Audit**: Login history missing SSO provider information
-- **Navigation UI**: Left sidebar expansion arrow is cut off
-- **Project Navigation**: Left Sidebar doesn't show projects section outside dashboard view
 
 ### Planned Features
 
