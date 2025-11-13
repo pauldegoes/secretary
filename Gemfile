@@ -46,7 +46,6 @@ gem "image_processing", "~> 1.2"
 
 # Authentication gems
 gem "omniauth"
-gem "omniauth-google-oauth2"
 gem "omniauth-github"
 
 # UI and styling

@@ -5,8 +5,6 @@ class AuthController < ApplicationController
     # Redirect to the OAuth provider
     provider = params[:provider]
     case provider
-    when 'google_oauth2'
-      redirect_to "https://accounts.google.com/oauth/authorize?client_id=#{ENV['GOOGLE_CLIENT_ID']}&redirect_uri=#{CGI.escape(request.base_url + '/auth/google_oauth2/callback')}&scope=email%20profile&response_type=code&access_type=offline&prompt=select_account", allow_other_host: true
     when 'github'
       redirect_to "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{CGI.escape(request.base_url + '/auth/github/callback')}&scope=user:email", allow_other_host: true
     else

@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe AuthController, type: :controller do
   describe 'GET #passthru' do
-    it 'redirects to Google OAuth for google_oauth2 provider' do
-      get :passthru, params: { provider: 'google_oauth2' }
-      expect(response).to have_http_status(:redirect)
-      expect(response.location).to include('accounts.google.com/oauth/authorize')
-      expect(response.location).to include('client_id=708150066847-d2i9v9tqc1qmrbnsf1l4dcisfihbtv3n.apps.googleusercontent.com')
-    end
-
     it 'redirects to GitHub OAuth for github provider' do
       get :passthru, params: { provider: 'github' }
       expect(response).to have_http_status(:redirect)

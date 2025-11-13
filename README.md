@@ -59,20 +59,12 @@ bundle exec rails db:migrate
 Create `.env` file with OAuth credentials:
 
 ```env
-# Google OAuth2
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-
 # GitHub OAuth
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
 
 ### 4. OAuth Setup
-
-**Google OAuth2:**
-1. [Google Cloud Console](https://console.cloud.google.com/) → Create OAuth 2.0 credentials
-2. Add redirect URI: `http://localhost:3000/auth/google_oauth2/callback`
 
 **GitHub OAuth:**
 1. GitHub Settings → Developer settings → OAuth Apps
@@ -84,7 +76,7 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 bundle exec rails server
 ```
 
-Visit `http://localhost:3000` and sign in with Google or GitHub.
+Visit `http://localhost:3000` and sign in with GitHub.
 
 ## Testing
 
