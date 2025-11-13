@@ -20,6 +20,7 @@ If you're here, you're probably planning on interviewing. That's great.  Familia
 
 ### Planned Features
 
+- **Multi-User Projects**: Allow multiple users to access and collaborate on project dashboards
 - **Allow users to add comments to each project**
 - **Add project statuses**
 
